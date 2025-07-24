@@ -21,6 +21,8 @@ export const AppContextProvider = (props) => {
   // State to track whether the current user is an educator or not
   const [isEducator, setIsEducator] = useState(true);
 
+  const [enrolledCourses, setEnrolledCourses] = useState([]);
+
   // Function to fetch all courses
   // Currently uses dummy data; can be replaced with API fetch logic
   const fetchAllCourses = async () => {
@@ -76,11 +78,17 @@ export const AppContextProvider = (props) => {
         return totalLectures;
     }
 
+// Fetch user enrolled courses
+const fetchUserEnrolledCourses = async () => {
+  // This function should ideally fetch enrolled courses from an API or database
+  setEnrolledCourses(dummyCourses)
+}
 
 
   // useEffect runs once on component mount to fetch course data
   useEffect(() => {
     fetchAllCourses();
+    fetchUserEnrolledCourses();
   }, []);
 
   // Values to be shared with all components that consume this context
@@ -93,7 +101,9 @@ export const AppContextProvider = (props) => {
     setIsEducator  ,      // Function to toggle user type
     calculateChapterTime, // Function to calculate chapter time
     calculateCourseDuration, // Function to calculate course duration
-    calculateNumberOfLectures
+    calculateNumberOfLectures,
+    enrolledCourses,
+    fetchUserEnrolledCourses
 
   };
 

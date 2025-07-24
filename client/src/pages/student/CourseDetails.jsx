@@ -22,15 +22,16 @@ const CourseDetails = () => {
     calculateNumberOfLectures,
     currency,
   } = useContext(AppContext);
-
-  useEffect(() => {
-    const fetchCourseData = () => {
+  const fetchCourseData = () => {
       const findCourse = allCourses.find(course => course._id === id);
       setCourseData(findCourse);
     };
 
+  useEffect(() => {
+    
+
     fetchCourseData();
-  }, [allCourses, id]);
+  }, [allCourses]);
 
   const toggleSection = (index) => {
     setOpenSection((prev) => ({
