@@ -18,6 +18,9 @@ app.use(express.json());
 
 
 //Routes
+app.get('/', (req, res) => {
+    res.send('API working')
+})
 app.post('/clerk' , express.json(), clerkWebHooks) 
 
 
