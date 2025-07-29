@@ -3,6 +3,7 @@ import { dummyCourses } from "../assets/assets";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import humanizeDuration from "humanize-duration";
+import {useAuth , useUser} from '@clerk/clerk-react'
 
 // Creating a global context to share data across components without prop drilling
 export const AppContext = createContext();
@@ -14,6 +15,9 @@ export const AppContextProvider = (props) => {
 
   // Hook to programmatically navigate within the application
   const navigate = useNavigate();
+
+  const {getToken} = useAuth()
+  const {user} = useUser()
 
   // State to hold all course data
   const [allCourses, setAllCourses] = useState([]);
@@ -91,6 +95,16 @@ const fetchUserEnrolledCourses = async () => {
     fetchUserEnrolledCourses();
   }, []);
 
+const logToken = async () => {
+  console.log(await getToken());
+}
+
+  useEffect(() => {
+    if(user)
+    {
+      logToken()
+    }
+  } , [user])
   // Values to be shared with all components that consume this context
   const value = {
     currency,            // Shared currency symbol/value
