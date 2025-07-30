@@ -21,6 +21,10 @@ const startServer = async () => {
 
     app.use(cors());
     app.use(clerkMiddleware());
+
+    app.post('/stripe', express.raw({
+      type: 'application/json',
+    }), stripeWebhooks);
     app.use(express.json());
 
     app.get('/', (req, res) => res.send('API working'));
@@ -28,9 +32,7 @@ const startServer = async () => {
     app.use('/api/educator', educatorRouter);
     app.use('/api/course', courseRouter);
     app.use('/api/user', userRouter);
-    app.post('/stripe', express.raw({
-      type: 'application/json',
-    }), stripeWebhooks);
+    
 
     app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
   } catch (error) {
